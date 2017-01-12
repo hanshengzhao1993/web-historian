@@ -18,9 +18,10 @@ exports.serveAssets = function(response, asset, callback) {
   fs.readFile(file, (err, data) => {
     if (err) {
       console.error(err);
-    } 
-    response.write(data);
-    response.end();
+    } else {
+      response.write(data);
+      response.end();
+    }
   });
 
 

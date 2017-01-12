@@ -7,13 +7,12 @@ var url = require('url');
 // require more modules/folders here!
 
 exports.handleRequest = function (request, response) {
-  // var pathName = url.parse( request.url ).pathname;
+  var pathName = url.parse( request.url ).pathname;
+  console.log(request.url.slice(1));
   if (request.url === '/') {
-    helpers.serveAssets(response, '/index.html', function () {
-      console.log('end');
+    helpers.serveAssets(response, '/index.html', function (err, data) {
+      // response.send(JSON.stringify(data));
     });
- 
-  
   }
 
   // fs.appendFile( archive.paths.list, 'www.google.com', function (err) {
