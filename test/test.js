@@ -86,7 +86,6 @@ describe('archive helpers', function() {
         if (!err) {
           expect(err).to.be.null;
           expect(urls).to.deep.equal(urlArray);
-          console.log('urlArray:  12312', urlArray);
         }
         done(err);
       });
