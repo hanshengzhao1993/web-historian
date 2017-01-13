@@ -7,19 +7,34 @@ var url = require('url');
 // require more modules/folders here!
 
 exports.handleRequest = function (request, response) {
-  var pathName = url.parse( request.url ).pathname;
-  console.log(request.url.slice(1));
-  if (request.url === '/') {
-    helpers.serveAssets(response, '/index.html', function (err, data) {
-      // response.send(JSON.stringify(data));
-    });
+  // console.log('request url: ', request.url);
+
+  if (request.method === 'GET') {
+    if (request.url === '/') {
+      helpers.serveAssets(response, '/index.html', function (err, data) {
+      });
+    } else {
+      archive.isUrlArchived(request.url.slice(1), function (err, trueOrFalse ) {
+        if ( trueOrFalse ) {
+          console.log(request.url);
+          helpers.serveAssets(response, request.url.slice(1), function (err, data) {
+            console.log('errL   ', err);
+            console.log('data', data);
+          });
+        } else {
+          // console.log('request.url', request.url);
+          response.writeHead(404); 
+          response.end();
+        } 
+        // if ( trueOrFalse) {
+        //   helpers.serveAssets(response, request.url, function (err, data) {
+        //   });
+        // } else {
+        //   helpers.serveAssets(response, request.url, function (err, data) {
+
+        //   });
+        // }
+      });       
+    }
   }
-
-  // fs.appendFile( archive.paths.list, 'www.google.com', function (err) {
-  //   if (err) throw err;
-  //   console.log('It\'s saved!');
-  // });
-
-  // console.log(typeof archive.paths, archive.paths);
-  // respond.end( archive.paths.list );
 };

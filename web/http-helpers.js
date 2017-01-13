@@ -17,7 +17,7 @@ exports.serveAssets = function(response, asset, callback) {
   var file = archive.paths.siteAssets + asset;
   fs.readFile(file, (err, data) => {
     if (err) {
-      console.error(err);
+      response.writeHead(exports.headers, 404);
     } else {
       response.write(data);
       response.end();
