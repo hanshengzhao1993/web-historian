@@ -7,7 +7,7 @@ var url = require('url');
 // require more modules/folders here!
 
 exports.handleRequest = function (request, response) {
-  // console.log('request url: ', request.url);
+  console.log('request url: ', request.url);
 
   if (request.method === 'GET') {
     if (request.url === '/') {
@@ -16,25 +16,23 @@ exports.handleRequest = function (request, response) {
     } else {
       archive.isUrlArchived(request.url.slice(1), function (err, trueOrFalse ) {
         if ( trueOrFalse ) {
-          console.log(request.url);
-          helpers.serveAssets(response, request.url.slice(1), function (err, data) {
-            console.log('errL   ', err);
-            console.log('data', data);
+            var path = archive.paths.archivedSites + request.url;
+            response.writeHead(200, header);
+            fs.readFile(first, second, function (err,content) {
+              response.end(content);
+            })      
           });
+          // response.writeHead(200);
         } else {
-          // console.log('request.url', request.url);
           response.writeHead(404); 
           response.end();
-        } 
-        // if ( trueOrFalse) {
-        //   helpers.serveAssets(response, request.url, function (err, data) {
-        //   });
-        // } else {
-        //   helpers.serveAssets(response, request.url, function (err, data) {
-
-        //   });
-        // }
+        }
       });       
     }
+  }
+  if ( request.method === 'POST') {
+
+  } else {
+
   }
 };

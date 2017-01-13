@@ -63,6 +63,3 @@ exports.downloadUrls = function( urlArray ) {
   });
 };
 
-// exports.catchError = function (request, ) {
-
-// };
